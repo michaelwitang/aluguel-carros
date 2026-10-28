@@ -1,0 +1,75 @@
+@startuml classes
+skinparam classAttributeIconSize 0
+abstract class Usuario {
+  - id: Long
+  - username: String
+  - senha: String
+  - nome: String
+  - perfil: Perfil
+}
+class Cliente {
+  - rg: String
+  - cpf: String
+  - endereco: String
+  - profissao: String
+  + substituirRendimentos(List<Rendimento>)
+}
+class Rendimento {
+  - entidadeEmpregadora: String
+  - valor: BigDecimal
+}
+class Agente {
+  - cnpj: String
+  - tipo: TipoAgente
+}
+class Automovel {
+  - matricula: String
+  - ano: Integer
+  - marca: String
+  - modelo: String
+  - placa: String
+  - tipoProprietario: TipoProprietario
+}
+class Pedido {
+  - dataInicio: LocalDate
+  - dataFim: LocalDate
+  - valorMensal: BigDecimal
+  - solicitaCredito: boolean
+  - status: StatusPedido
+  - parecer: String
+  + isEditavelPeloCliente(): boolean
+  + isCancelavel(): boolean
+}
+class Contrato {
+  - tipoProprietario: TipoProprietario
+  - dataAssinatura: LocalDateTime
+}
+class ContratoCredito {
+  - valor: BigDecimal
+  - taxaJurosMensal: BigDecimal
+  - parcelas: Integer
+}
+enum Perfil { CLIENTE
+AGENTE }
+enum TipoAgente { EMPRESA
+BANCO }
+enum StatusPedido { PENDENTE
+APROVADO
+REPROVADO
+CANCELADO
+CONTRATADO }
+enum TipoProprietario { CLIENTE
+EMPRESA
+BANCO }
+Usuario <|-- Cliente
+Usuario <|-- Agente
+Cliente "1" *-- "0..3" Rendimento
+Cliente "1" -- "*" Pedido
+Pedido "*" --> "1" Automovel
+Pedido "*" --> "0..1" Agente : avaliador
+Pedido "1" -- "0..1" Contrato
+Contrato "*" --> "1" Agente
+Contrato "1" *-- "0..1" ContratoCredito
+ContratoCredito "*" --> "1" Agente : banco
+Automovel "*" --> "0..1" Usuario : proprietario
+@enduml

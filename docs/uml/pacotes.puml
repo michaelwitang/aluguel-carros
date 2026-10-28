@@ -1,0 +1,33 @@
+@startuml pacotes
+package "frontend (React + Vite)\nSubsistema de construção dinâmica das páginas" as FE {
+  package pages
+  package components
+  package context
+  package api
+  pages ..> components
+  pages ..> context
+  pages ..> api
+  context ..> api
+}
+package "backend (Spring Boot - MVC)\nSubsistema de gestão de pedidos e contratos" as BE {
+  package controller
+  package dto
+  package service
+  package repository
+  package model
+  package security
+  package config
+  package exception
+  controller ..> service
+  controller ..> dto
+  service ..> repository
+  service ..> model
+  service ..> dto
+  repository ..> model
+  security ..> repository
+  config ..> security
+}
+database "Supabase (PostgreSQL)" as DB
+api ..> controller : HTTP/JSON + JWT
+repository ..> DB : JPA/JDBC
+@enduml
