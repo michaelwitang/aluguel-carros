@@ -36,8 +36,8 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
-        if (usuarioRepository.count() > 0) {
-            log.info("Carga inicial ignorada: banco já possui dados.");
+        if (usuarioRepository.findByUsername("locadora").isPresent()) {
+            log.info("Carga inicial ignorada: dados de demonstração já existem.");
             return;
         }
 

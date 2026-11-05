@@ -93,7 +93,7 @@ export DB_URL="jdbc:postgresql://<host>:5432/postgres?sslmode=require"
 export DB_USERNAME="postgres.<project-ref>"
 export DB_PASSWORD="<senha>"
 export JWT_SECRET="<chave aleatória com 32+ caracteres>"
-export CORS_ORIGINS="http://localhost:5173"
+export CORS_ORIGINS="http://localhost:*"
 mvn spring-boot:run          # API em http://localhost:8080/api
 ```
 Produção: `mvn clean package && java -jar target/aluguel-carros-1.0.0.jar` (recomenda-se `DDL_AUTO=validate` após criar o schema).
