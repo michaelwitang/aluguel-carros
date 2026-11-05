@@ -98,6 +98,22 @@ mvn spring-boot:run          # API em http://localhost:8080/api
 ```
 Produção: `mvn clean package && java -jar target/aluguel-carros-1.0.0.jar` (recomenda-se `DDL_AUTO=validate` após criar o schema).
 
+### Dados de demonstração
+Na primeira execução (banco sem usuários), o back-end cadastra automaticamente dados de exemplo
+(classe `config/DataSeeder`): 2 agentes, 3 clientes com rendimentos, 8 automóveis, 7 pedidos em
+todos os status (pendente, aprovado, reprovado, cancelado e contratado) e 1 contrato com crédito bancário.
+Para desativar, use `export APP_SEED_ENABLED=false`.
+
+Todos os usuários usam a senha **`senha123`**:
+
+| Usuário    | Perfil          | O que aparece                                        |
+|------------|-----------------|------------------------------------------------------|
+| `joao`     | Cliente         | 2 pedidos (pendente e aprovado com crédito)          |
+| `maria`    | Cliente         | 2 pedidos (pendente e contratado)                    |
+| `pedro`    | Cliente         | 3 pedidos (pendente, reprovado e cancelado)          |
+| `locadora` | Agente (empresa)| Todos os pedidos para avaliar; cadastro de automóveis|
+| `banco`    | Agente (banco)  | Todos os pedidos; concessão de contratos de crédito  |
+
 ### 3. Front-end
 ```bash
 cd frontend
